@@ -13,7 +13,11 @@ const mix = require('laravel-mix');
 
 mix.js('resources/js/app.js', 'public/js')
    .extract(['vue'])
-   .sass('resources/sass/app.scss', 'public/css');
+   .sass('resources/sass/app.scss', 'public/css')
+   .scripts(['resources/js/datatables.min.js', 'resources/js/bootbox.min.js', 'resources/js/moment.min.js',
+       'resources/js/bootstrap-datetimepicker.js', 'resources/js/common.js', 'resources/js/jquery.fieldsaddmore.js'
+   ], 'public/js/all.js')
+   .styles(['resources/css/datatables.min.css', 'resources/css/bootstrap-datetimepicker.css'], 'public/css/all.css');
 
 
 /**

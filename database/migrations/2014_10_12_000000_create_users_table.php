@@ -15,6 +15,8 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger("quiz_id");
+            $table->foreign("quiz_id")->references('id')->on('quizzes');
             $table->string('full_name');
             $table->string('nick_name');
             $table->timestamp('start_time')->nullable();

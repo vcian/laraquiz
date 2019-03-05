@@ -15,7 +15,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/{any}', 'SinglePageController@index')->where('any', '.*');
-Auth::routes();
+// Route::get('/{any}', 'SinglePageController@index')->where('any', '.*');
+Route::prefix('admin')->group(function () {
+    Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+    Route::resource('quiz', 'QuizController');
+});
+
+Route::get('/dashboard', 'HomeController@index')->name('admin.dashboard');
