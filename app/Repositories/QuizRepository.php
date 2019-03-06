@@ -6,7 +6,9 @@ use App\Models\Quiz\Quiz;
 use App\Models\Question\Question;
 use App\Models\Question\QuestionOption;
 // use Illuminate\Support\Str;
+use App\Imports\QuestionsImport;
 use DB;
+use Excel;
 
 class QuizRepository {
 
@@ -37,10 +39,14 @@ class QuizRepository {
             // $input['slug'] = Str::slug($input['quiz_name'], '-');
             $input['admin_id'] = \Auth::id();
             $quiz = $this->model->create($input);
-
+            
             if ($quiz) {
+                // dd($input['import_questions']);
+                if (isset($input['import_questions'])) {
+                    Excel::import(new QuestionsImport($quiz->id), $input['import_questions']);
+                }
                 // add questions
-                if (count($input['questions'])) {
+                else if (count($input['questions'])) {
                     foreach ($input['questions'] as $key => $question) {
                         $question['quiz_id'] = $quiz->id;
 

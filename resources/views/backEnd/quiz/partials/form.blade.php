@@ -40,10 +40,29 @@
                     {!! Html::decode(Form::label('status2', __('Inactive'), ['class' => 'custom-control-label'])) !!}
                 </div>
             </div>
-            {!! Html::decode($errors->has("question") ? $errors->first('question', '<span class="text-danger">:message</span>') : '') !!}
+            {!! Html::decode($errors->has("status") ? $errors->first('status', '<span class="text-danger">:message</span>') : '') !!}
         </div>
     </div>
 </div>
+
+@if(Route::currentRouteName() == 'quiz.create')
+    <div class="row">
+        <div class="col-12">
+            <hr class="mt-0">
+            <div class="col-6 offset-md-1">
+                <span class="text-danger"><b>Note* :</b> Either choose excel file or Add questions below</span>
+            </div>
+            <div class="col-6 offset-md-3">
+                <div class="custom-file">
+                    <label class="custom-file-label" for="import_questions" id="selectedFile">Choose excel file to import quiz questions</label>
+                    {{ Form::file('import_questions', ['class' => 'custom-file-input']) }}
+                    {!! Html::decode($errors->has("import_questions") ? $errors->first('import_questions', '<span class="text-danger">:message</span>') : '') !!}
+                </div>
+            </div>
+            <hr class="hr-text" data-content="OR">
+        </div>
+    </div>
+@endif
 <div class="row">
     <div class="col-12">
             <table class="table table-bordered table-hover tablesorter">
@@ -204,7 +223,7 @@
                 rowEle: ".fieldsaddmore-row",
                 addbtn: ".fieldsaddmore-addbtn",
                 removebtn: ".fieldsaddmore-removebtn",
-                min: ($('.fieldsaddmore-row').length > 0) ? 0 : 1,
+                min: ($('.fieldsaddmore-row').length > 0) ? 0 : 0, // 1,
             });
         });
     </script>

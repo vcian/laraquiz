@@ -57,13 +57,15 @@ class QuizController extends Controller
             'time_limit' => 'required|date_format:i:s',
             'start_time' => 'required',
             'end_time' => 'required',
-            'questions.*.question' => 'required',
-            'questions.*.options.*.option' => 'required',
+            'import_questions' => 'mimetypes:application/vnd.ms-excel,application/vnd.oasis.opendocument.text,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            'questions.*.question' => 'required:import_questions,NULL',
+            'questions.*.options.*.option' => 'required:import_questions,NULL',
         ], [
             'time_limit.required' => 'The quiz total time field is required.',
             'time_limit.date_format' => 'The quiz time should match the format MM:SS.',
             'questions.*.question.required' => 'The field is required.',
             'questions.*.options.*.option.required' => 'The field is required.',
+            'import_questions.mimetypes' => 'Choose only .xlsx, .xls, .odt file'
         ]);
 
         $inputs = $request->all();
