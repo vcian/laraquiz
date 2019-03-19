@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Models\Quiz\Quiz;
+use App\Models\Quiz\UserQuizResult;
 
 class User extends Authenticatable
 {
@@ -18,7 +20,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'quiz_id', 'full_name', 'nick_name', 'start_time', 'end_time'
     ];
 
     /**
@@ -27,6 +29,15 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'remember_token',
     ];
+
+    /**
+     * User has played many Quiz
+     * 
+     */
+    public function quizzes()
+    {
+        return $this->belongsToMany(Quiz::class, 'user_quiz_results', 'user_id', 'quiz_id')->withTimestamps();
+    }
 }

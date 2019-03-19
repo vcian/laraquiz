@@ -4,6 +4,7 @@ namespace App\Exceptions;
 
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Auth\AuthenticationException;
 
 class Handler extends ExceptionHandler
 {
@@ -47,5 +48,23 @@ class Handler extends ExceptionHandler
     public function render($request, Exception $exception)
     {
         return parent::render($request, $exception);
+    }
+
+    protected function unauthenticated($request, AuthenticationException $exception)
+    {
+        if ($request->expectsJson()) {
+            return response()->json(['error' => 'Unauthenticated.'], 401);
+        }
+        if ($request->is('admin') || $request->is('admin/*')) {
+            return redirect()->guest('/admin/login');
+        }
+        if ($request->is('quiz') || $request->is('quiz/*')) {
+            if($request->route('slug')) {
+                return redirect()->guest(route('quiz.login', ['slug' => $request->route('slug')]))->with('warning', 'Sorry, you are not authorized to access this page.');
+            } else {
+                return redirect()->guest(route('quiz.login', ['slug' => '']));
+            }
+        }
+        return redirect()->guest(route('login'));
     }
 }

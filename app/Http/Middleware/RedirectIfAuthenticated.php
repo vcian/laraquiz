@@ -20,12 +20,12 @@ class RedirectIfAuthenticated
         switch ($guard) {
             case 'admin':
                 if (Auth::guard($guard)->check()) {
-                    return redirect()->route('home');
+                    return redirect()->route('dashboard');
                 }
             break;
             case 'web':
                 if (Auth::guard($guard)->check()) {
-                    return redirect()->route('home');
+                    return redirect()->route('quiz.login', ['slug' => $request->route('slug')]);
                 }
             break;
             default:

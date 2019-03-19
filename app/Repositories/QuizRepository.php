@@ -7,8 +7,10 @@ use App\Models\Question\Question;
 use App\Models\Question\QuestionOption;
 // use Illuminate\Support\Str;
 use App\Imports\QuestionsImport;
+use Carbon\Carbon;
 use DB;
 use Excel;
+use Auth;
 
 class QuizRepository {
 
@@ -26,7 +28,7 @@ class QuizRepository {
 
     public function index() {
         try {
-            return $this->model->get();
+            return $this->model->admin()->get();
         } catch (\Exception $ex) {
             \Log::error($ex);
             return false;
@@ -86,11 +88,24 @@ class QuizRepository {
         }
     }
 
+    public function findBySlug($slug) {
+        try {
+            $quiz = $this->model->with('questions.options')->whereSlug($slug)->first();
+            if ($quiz) {
+                return $quiz;
+            }
+            return false;
+        } catch (\Exception $ex) {
+            \Log::error($ex);
+            return false;
+        }
+    }
+
     public function update($input, $id) {
         try {
             DB::beginTransaction();
             // DB::enableQueryLog();
-            $quiz = $this->model->find($id);
+            $quiz = $this->model->admin()->find($id);
             if ($quiz->update(array_only($input, ['quiz_name', 'time_limit', 'start_time', 'end_time', 'status']))) {
                 // $query = DB::getQueryLog();
                 // dd(end($query));
@@ -152,12 +167,79 @@ class QuizRepository {
             $questionIds = Question::where('quiz_id', $id)->pluck('id')->toArray();
             QuestionOption::whereIn('question_id', $questionIds)->delete();
             Question::where('quiz_id', $id)->delete();
-            $this->model->whereId($id)->delete();
+            $this->model->admin()->whereId($id)->delete();
             DB::commit();
             return true;
         } catch (\Exception $ex) {
             DB::rollback();
             \Log::error($ex);
+            return false;
+        }
+    }
+
+    public function quizExists($slug)
+    {
+        try {
+            return $this->model->whereSlug($slug)->exists();
+        } catch (\Exception $ex) {
+            \Log::error($ex);
+            return false;
+        }
+    }
+
+    public function checkStartTime($slug)
+    {
+        try {
+            return $this->model->where('start_time', '<=', Carbon::now())->where('end_time', '>=', Carbon::now())->exists();
+        } catch (\Exception $ex) {
+            \Log::error($ex);
+            return false;
+        }
+    }
+
+    public function quizStore($input, $slug)
+    {
+        DB::beginTransaction();
+        try {
+            $totalWrong = $totalRight = 0;
+            if (isset($input['options'])) {
+                foreach ($input['options'] as $key => $value) {
+                    $result = QuestionOption::where(['answer' => 1, 'question_id' => $key])->first();
+
+                    if ($result && $result->id == $value) {
+                        $totalRight++;
+                    } else {
+                        $totalWrong++;
+                    }
+                }
+            }
+            $totalAttempted = $totalRight + $totalWrong;
+            $totalSkipped = $input['total_q'] - $totalAttempted;
+            
+            $userQuizResult = array();
+            $user = Auth::guard('web')->user();
+            
+            $userQuizResult['total_attempted'] = $totalAttempted;
+            $userQuizResult['total_skipped'] = $totalSkipped;
+            $userQuizResult['total_wrong'] = $totalWrong ? $totalWrong : 0;
+            $userQuizResult['total_right'] = $totalRight ? $totalRight : 0;
+
+            $quiz = $this->model->whereSlug($slug)->first();
+            $result = $quiz->users()->syncWithoutDetaching([$user->id => $userQuizResult]);
+            $user->update(['end_time' => Now()]); // Update the user quiz end time
+
+            if (count($result['attached'])) {
+                DB::commit();
+                // event(new QuizResult('done'));
+                return true;
+            } else {
+                DB::rollBack();
+                return false;
+            }
+
+        } catch (\Exception $ex) {
+            \Log::error($ex);
+            DB::rollBack();
             return false;
         }
     }

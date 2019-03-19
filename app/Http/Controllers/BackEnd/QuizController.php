@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\BackEnd;
 
 use App\Models\Quiz\Quiz;
 use Illuminate\Http\Request;
 use App\Repositories\QuizRepository;
+use App\Http\Controllers\Controller;
 
 class QuizController extends Controller
 {

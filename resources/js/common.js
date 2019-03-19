@@ -60,3 +60,62 @@ $(function () {
 
     $(".datatable").DataTable();
 });
+
+/**
+ * Quiz Timer - START
+ */
+var timeInSecs;
+var ticker;
+
+function startTimer(secs) {
+    timeInSecs = parseInt(secs);
+    ticker = setInterval("tick()", 1000);
+}
+
+function tick() {
+    var secs = timeInSecs;
+    if (secs > 0) {
+        timeInSecs--;
+    } else {
+        clearInterval(ticker);
+    }
+
+    var mins = Math.floor(secs / 60);
+    secs %= 60;
+    var pretty = ((mins < 10) ? "0" : "") + mins + ":" + ((secs < 10) ? "0" : "") + secs;
+
+    var countdown = $("#countdown");
+
+    if (countdown.length !== 0) {
+        countdown.html(pretty);
+        document.cookie = "LLQ_time=" + pretty;
+        console.log(pretty === '00:00')
+        if (pretty === '00:00') {
+            $('#userQuizForm').submit();
+        }
+    }
+}
+
+function countDown() {
+    var time = getCookie('LLQ_time');
+    if (time !== undefined) {
+        var parts = time.split(':'),
+            minutes = +parts[0],
+            seconds = +parts[1];
+        return (minutes * 60 + seconds).toFixed(3);
+    } else {
+        return (10 * 60);
+    }
+}
+
+function getCookie(name) {
+    var value = "; " + document.cookie;
+    var parts = value.split("; " + name + "=");
+    if (parts.length === 2) return parts.pop().split(";").shift();
+}
+startTimer(countDown());
+
+delete_cookie = function (name, path) {
+    document.cookie = name + '=;Expires=Thu, 01 Jan 1970 00:00:01 GMT; Path=' + path;
+};
+/** Quiz Timer - End */

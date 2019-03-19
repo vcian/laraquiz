@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Builder;
 use App\Models\Question\Question;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
+use App\Models\User;
+use App\Models\Quiz\UserQuizResult;
 use Auth;
 
 class Quiz extends Model
@@ -105,6 +107,26 @@ class Quiz extends Model
     }
 
     /**
+     * Quizzes belongs to the User
+     * 
+     */
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'user_quiz_results', 'quiz_id', 'user_id')->withTimestamps();
+    }
+
+    /**
+     * Scope a query to only include quiz of the current user.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeAdmin($query)
+    {
+        return $query->where('admin_id', Auth::id());
+    }
+
+    /**
      * The "booting" method of the model.
      *
      * @return void
@@ -114,13 +136,8 @@ class Quiz extends Model
         parent::boot();
 
         // global scope to get only the quiz whose status is active i.e. '1'
-        // static::addGlobalScope('status', function (Builder $builder) {
-        //     $builder->where('status', 1);
-        // });
-
-        // global scope to get only the quiz of the current user
-        static::addGlobalScope('admin', function (Builder $builder) {
-            $builder->where('admin_id', Auth::id());
+        static::addGlobalScope('status', function (Builder $builder) {
+            $builder->where('status', 1);
         });
 
         // this will be called after 'create' method is called of the model
