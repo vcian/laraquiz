@@ -28,7 +28,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/dashboard';
+    protected $redirectTo;
 
     /**
      * Create a new controller instance.
@@ -39,6 +39,8 @@ class RegisterController extends Controller
     {
         $this->middleware('guest');
         $this->middleware('guest:admin');
+
+        $this->redirectTo = route('admin.dashboard');
     }
 
     /**

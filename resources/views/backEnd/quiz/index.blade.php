@@ -6,7 +6,7 @@
     <div class="card">
         <div class="card-header">
             {{ __('Manage Quiz') }}
-            {{ link_to_route('quiz.create', "Add Quiz", [], ['class' => 'btn btn-success btn-sm float-right']) }}
+            {{ link_to_route('admin.quiz.create', "Add Quiz", [], ['class' => 'btn btn-success btn-sm float-right']) }}
         </div>
 
         <div class="card-body">
@@ -31,8 +31,8 @@
                                 <td> {{ $quiz->start_time }} </td>
                                 <td> {{ $quiz->end_time }} </td>
                                 <td>
-                                    {!! Html::decode(link_to_route('quiz.edit', '<i class="fas fa-edit"></i>', ['id' => $quiz->id], ['class' => 'btn btn-sm btn-primary'])) !!}
-                                    {!! Html::decode(link_to_route('quiz.destroy', '<i class="fas fa-trash-alt"></i>', ['id' => $quiz->id], ['class' => 'btn btn-sm btn-danger', "data-method" => "delete", 
+                                    {!! Html::decode(link_to_route('admin.quiz.edit', '<i class="fas fa-edit"></i>', ['id' => $quiz->id], ['class' => 'btn btn-sm btn-primary'])) !!}
+                                    {!! Html::decode(link_to_route('admin.quiz.destroy', '<i class="fas fa-trash-alt"></i>', ['id' => $quiz->id], ['class' => 'btn btn-sm btn-danger', "data-method" => "delete", 
                                         "data-modal-text" => "delete the record?", "data-original-title" => "Delete quiz"])) !!}
                                 </td>
                             </tr>

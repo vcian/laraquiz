@@ -71,7 +71,7 @@ class QuizController extends Controller
 
         $inputs = $request->all();
         if ($this->repo->create($inputs)) {
-            return redirect()->route('quiz.index')->with('success', __('Quiz created successfully!'));
+            return redirect()->route('admin.quiz.index')->with('success', __('Quiz created successfully!'));
         } else {
             return back()
                 ->withInput()
@@ -129,7 +129,7 @@ class QuizController extends Controller
 
         $inputs = $request->all();
         if ($this->repo->update($inputs, $id)) {
-            return redirect()->route('quiz.index')->with('success', __('Quiz updated successfully!'));
+            return redirect()->route('admin.quiz.index')->with('success', __('Quiz updated successfully!'));
         } else {
             return back()
                 ->withInput()
@@ -146,7 +146,7 @@ class QuizController extends Controller
     public function destroy(Quiz $quiz)
     {
         if ($this->repo->delete($quiz->id)) {
-            return redirect()->route('quiz.index')->with('success', __('Quiz deleted successfully!'));
+            return redirect()->route('admin.quiz.index')->with('success', __('Quiz deleted successfully!'));
         } else {
             return back()
                 ->withInput()

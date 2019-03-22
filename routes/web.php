@@ -16,22 +16,26 @@
 // });
 
 // Route::get('/{any}', 'SinglePageController@index')->where('any', '.*');
-Route::prefix('admin')->group(function () {
+Route::prefix('admin')->name('admin.')->group(function () {
     Auth::routes();
 
     Route::resource('quiz', 'BackEnd\\QuizController');
+    Route::get('/dashboard', 'HomeController@index')->name('dashboard');
 });
 
-Route::get('/dashboard', 'HomeController@index')->name('admin.dashboard');
+
 
 /**
  * Frontend quiz related routes
  */
 
 Route::prefix('quiz')->group(function () {
-    Route::get('/{slug}', 'FrontEnd\\QuizController@index')->name('quiz.login');
-    Route::post('/{slug}/register', 'FrontEnd\\QuizController@registerUser')->name('quiz.registerUser');
-    Route::get('/{slug}/start', 'FrontEnd\\QuizController@quizStart')->name('quiz.play');
+    Route::group(['middleware' => ['disablepreventback']], function () {
+        Route::get('/{slug}', 'FrontEnd\\QuizController@index')->name('quiz.login');
+        Route::post('/{slug}/register', 'FrontEnd\\QuizController@registerUser')->name('quiz.registerUser');
+        Route::get('/{slug}/start', 'FrontEnd\\QuizController@quizStart')->name('quiz.play');
+        Route::get('/{slug}/thank-you', 'FrontEnd\\QuizController@thankYou')->name('quiz.thankYou');
+    });
+    
     Route::post('/{slug}', 'FrontEnd\\QuizController@quizStore')->name('quiz.store');
-    Route::get('/{slug}/thank-you', 'FrontEnd\\QuizController@thankYou')->name('quiz.thankYou');
 });

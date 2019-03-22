@@ -45,7 +45,7 @@
     </div>
 </div>
 
-@if(Route::currentRouteName() == 'quiz.create')
+@if(Route::currentRouteName() == 'admin.quiz.create')
     <div class="row">
         <div class="col-12">
             <hr class="mt-0">

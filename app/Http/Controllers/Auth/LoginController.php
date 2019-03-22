@@ -26,7 +26,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/dashboard';
+    protected $redirectTo;
 
     /**
      * Create a new controller instance.
@@ -38,28 +38,29 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
         $this->middleware('guest:admin')->except('logout');
         
+        $this->redirectTo = route('admin.dashboard');
     }
 
-    // /**
-    //  * Get the guard to be used during authentication.
-    //  *
-    //  * @return \Illuminate\Contracts\Auth\StatefulGuard
-    //  */
-    // protected function guard()
-    // {
-    //     return Auth::guard("admin");
-    // }
+    /**
+     * Get the guard to be used during authentication.
+     *
+     * @return \Illuminate\Contracts\Auth\StatefulGuard
+     */
+    protected function guard()
+    {
+        return Auth::guard("admin");
+    }
 
-    // /**
-    //  * Log the user out of the application.
-    //  *
-    //  * @param  \Illuminate\Http\Request  $request
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function logout()
-    // {
-    //     $this->guard()->logout();
+    /**
+     * Log the user out of the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function logout()
+    {
+        $this->guard()->logout();
 
-    //     return redirect()->route('login');
-    // }
+        return redirect()->route('admin.login');
+    }
 }
