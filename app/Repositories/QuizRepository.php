@@ -117,7 +117,8 @@ class QuizRepository {
                         if (isset($question['id'])) {
                             // update quiz question
                             $questionIds[] = $question['id'];
-                            if(Question::where('id', $question['id'])->update(array_only($question, ['question']))) {
+
+                            if(Question::where('id', $question['id'])->update(array_only($question, ['question','code_snippet']))) {
 
                                 foreach ($question['options'] as $qkey => $option) {
                                     $optionIds[] = $option['id'];

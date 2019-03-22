@@ -25,8 +25,8 @@ class QuestionsImport implements ToModel, WithHeadingRow
     {
         $question = Question::create([
             'question' => $row['questions'],
-            'quiz_id' => $this->quiz_id
-            // 'code_snippet' => $row['code_snippet'],
+            'quiz_id' => $this->quiz_id,
+            'code_snippet' => $row['code_snippet']
         ]);
 
         if ($question->id) {

@@ -12,7 +12,7 @@ class Question extends Model
      *
      * @var array
      */
-    protected $fillable = ['quiz_id', 'question'];
+    protected $fillable = ['quiz_id', 'question','code_snippet'];
 
     /**
      * Get the quiz for the question.
