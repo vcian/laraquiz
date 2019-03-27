@@ -41,7 +41,7 @@ class QuizRepository {
             // $input['slug'] = Str::slug($input['quiz_name'], '-');
             $input['admin_id'] = \Auth::id();
             $quiz = $this->model->create($input);
-            
+            dd($input);
             if ($quiz) {
                 // dd($input['import_questions']);
                 if (isset($input['import_questions'])) {
