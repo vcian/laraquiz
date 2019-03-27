@@ -9,13 +9,14 @@ use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
+use App\Repositories\QuizRepository;
 
-class QuizEvent implements ShouldBroadcast
+class QuizWinnerEvent implements ShouldBroadcast
 {
-    // use Dispatchable, InteractsWithSockets, SerializesModels;
+    use Dispatchable, InteractsWithSockets, SerializesModels;
 
     /** @var object */
-    protected $quiz;
+    protected $quizWinners;
 
     /**
      * Create a new event instance.
@@ -24,7 +25,7 @@ class QuizEvent implements ShouldBroadcast
      */
     public function __construct()
     {
-        //
+        $this->quizWinners = (new QuizRepository())->getWinnerList();
     }
 
     /**
