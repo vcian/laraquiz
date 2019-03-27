@@ -41,7 +41,7 @@ class QuizRepository {
             // $input['slug'] = Str::slug($input['quiz_name'], '-');
             $input['admin_id'] = \Auth::id();
             $quiz = $this->model->create($input);
-            
+            dd($input);
             if ($quiz) {
                 // dd($input['import_questions']);
                 if (isset($input['import_questions'])) {
@@ -117,7 +117,8 @@ class QuizRepository {
                         if (isset($question['id'])) {
                             // update quiz question
                             $questionIds[] = $question['id'];
-                            if(Question::where('id', $question['id'])->update(array_only($question, ['question']))) {
+
+                            if(Question::where('id', $question['id'])->update(array_only($question, ['question','code_snippet']))) {
 
                                 foreach ($question['options'] as $qkey => $option) {
                                     $optionIds[] = $option['id'];

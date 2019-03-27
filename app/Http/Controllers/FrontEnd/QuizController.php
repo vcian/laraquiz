@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\FrontEnd;
 
 use App\Models\Quiz\Quiz;
+use App\Models\Quiz\UserQuizResult;
 use Illuminate\Http\Request;
 use App\Repositories\QuizRepository;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Log;
 
 class QuizController extends Controller
 {
@@ -119,6 +121,19 @@ class QuizController extends Controller
             \Auth::guard('web')->logout();
             return view('frontEnd.thankyou');
         } catch (\Exception $ex) {
+            Log::error($ex->getMessage());
+        }
+    }
+
+    public function dashboard($slug)
+    {
+        try {
+            $quiz = $this->repo->findBySlug($slug);
+
+            $userDetails = UserQuizResult::where('quiz_id',$quiz->id)->with('user')->get();
+
+            return view('frontEnd.quiz_dashboard',compact('userDetails'));
+        }catch (\Exception $ex){
             Log::error($ex->getMessage());
         }
     }

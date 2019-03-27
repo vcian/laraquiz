@@ -35,6 +35,7 @@ Route::prefix('quiz')->group(function () {
         Route::post('/{slug}/register', 'FrontEnd\\QuizController@registerUser')->name('quiz.registerUser');
         Route::get('/{slug}/start', 'FrontEnd\\QuizController@quizStart')->name('quiz.play');
         Route::get('/{slug}/thank-you', 'FrontEnd\\QuizController@thankYou')->name('quiz.thankYou');
+        Route::get('/{slug}/dashboard', 'FrontEnd\\QuizController@dashboard')->name('quiz.dashboard');
     });
     
     Route::post('/{slug}', 'FrontEnd\\QuizController@quizStore')->name('quiz.store');

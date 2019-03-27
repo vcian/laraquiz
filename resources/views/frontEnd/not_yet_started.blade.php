@@ -7,7 +7,7 @@
 
             <div class="card-body">
                 {{ __('Sorry, Quiz is not published yet!!!') }}
-            </div> 
+            </div>
         </div>
     </div>
 @endsection

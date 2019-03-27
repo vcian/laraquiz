@@ -129,6 +129,15 @@
                                             </div>
                                             {!! Html::decode($errors->has("questions.$key.question") ? $errors->first("questions.$key.question", '<span class="text-danger">:message</span>') : '') !!}
                                         </div>
+                                        <div class="col-12 mb-2">
+                                            <div class="input-group input-group-sm ">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">{{ __('Code Snippet') . " :"}} </span>
+                                                </div>
+                                                {{ Form::text('questions[' . $key . '][code_snippet]', $question["code_snippet"], ['placeholder' => __('Question Code Snippet'), "class" => "form-control"]) }}
+                                            </div>
+                                            {!! Html::decode($errors->has("questions.$key.question") ? $errors->first("questions.$key.question", '<span class="text-danger">:message</span>') : '') !!}
+                                        </div>
                                         @foreach ($question['options'] as $oKey => $option)
                                             <div class="col-12 col-md-6 col-lg-6 col-xl-3 {{ $loop->last ? 'pl-1' : ($loop->first ? 'pr-1' : 'pr-1 pl-1') }} ">
                                                 {{ Form::hidden('questions[' . $key . '][options][' . $oKey . '][id]', $option["id"]) }}
@@ -165,6 +174,14 @@
                             <span class="input-group-text">{{ __('Question') }} key<span class="text-danger">*</span> : </span>
                         </div>
                         {{ Form::text('questions[key][question]', null, ['placeholder' => __('Question'), "class" => "form-control"]) }}
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="input-group input-group-sm mb-2">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">{{ __('Code Snippet') }} : </span>
+                        </div>
+                        {{ Form::text('questions[key][code_snippet]', null, ['placeholder' => __('Question Code Snippet'), "class" => "form-control"]) }}
                     </div>
                 </div>
                 <div class="col-12 col-md-6 col-lg-6 col-xl-3 pr-1">
