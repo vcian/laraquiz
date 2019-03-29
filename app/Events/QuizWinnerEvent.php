@@ -19,22 +19,23 @@ class QuizWinnerEvent implements ShouldBroadcast
      *
      * @var string
      */
-    public $quiz;
+    public $quizSlug;
 
     /** @var object */
-    protected $quizWinners;
-    protected $players;
+    public $winners;
+    // protected $players;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(String $quizSlug)
     {
+        $this->quizSlug = $quizSlug;
         $quizRepo = App::make('App\Repositories\QuizRepository');
-        $this->quizWinners = $quizRepo->getWinnerList();
-        $this->$players = $quizRepo->getPlayerList();
+        $this->winners = $quizRepo->getWinnerList();
+        // $this->$players = $quizRepo->getPlayerList();
     }
 
     /**
@@ -44,6 +45,6 @@ class QuizWinnerEvent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('quiz.' . $this->quiz->id);
+        return new Channel('quiz.' . $this->quizSlug);
     }
 }

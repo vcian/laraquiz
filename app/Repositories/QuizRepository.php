@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Quiz\Quiz;
+use App\Models\Quiz\UserQuizResult;
 use App\Models\Question\Question;
 use App\Models\Question\QuestionOption;
 // use Illuminate\Support\Str;
@@ -245,14 +246,17 @@ class QuizRepository {
         }
     }
 
-    public function getWinnerList()
+    public function getWinnerList($slug)
     {
         $winners = UserQuizResult::select([
-                'TIMEDIFF(user_quiz_results.created_at, users.created_at) as diff', 
+                \DB::raw('TIMEDIFF(user_quiz_results.created_at, users.created_at) as diff'), 
                 'users.*', 
-                'user_quiz_results.created_at as stop_time'
+                'user_quiz_results.created_at as stop_time',
+                'quizzes.slug'
             ])
             ->join('users','user_quiz_results.user_id','=','users.id')
+            ->join('quizzes', 'quizzes.id', '=', 'user_quiz_results.quiz_id')
+            ->where('quizzes.slug', $slug)
             ->orderBy('user_quiz_results.total_right', 'desc')
             ->orderBy('diff', 'asc')
             ->take(3)

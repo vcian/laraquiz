@@ -21,8 +21,8 @@ Vue.use(VueRouter)
  * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
  */
 
-// const files = require.context('./', true, /\.vue$/i)
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
+const files = require.context('./', true, /\.vue$/i)
+files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 // Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
@@ -35,46 +35,5 @@ Vue.use(VueRouter)
  */
 
 const app = new Vue({
-    el: '#app',
-    data: {
-        quiz: {
-            id: quizId,
-            name: quizName,
-            slug: quizSlug,
-            users: [],
-            result:[]
-        }
-    },
-    created() {
-        axios.post(window.location.origin+'/quiz/'+ this.quiz.slug+'/dashboard')
-            .then(response => {
-                if (response.data) {
-                    this.quiz.users = response.data.userDetails;
-                    this.quiz.result = response.data.quizResult;
-                }
-            })
-            .catch(e => {
-                console.log(e);
-            });
-
-        this.$socket.on('quizStart'+ this.quiz.id, (data) => {
-            this.quiz.users.push(data);
-        });
-
-        this.$socket.on('quizResult'+ this.quiz.id, (data) => {
-            this.quiz.result = data.quizResult;
-            console.log(data);
-            this.quiz.users.map(function(value, key) {
-                if(value.id === data.id) {
-                    value.quiz_complete = data.quiz_complete;
-                    value.end_time = data.end_time;
-                }
-            });
-        });
-    },
-    sockets:{
-        connect: function(){
-            console.log('socket connect')
-        }
-    },
+    el: '#app'
 });

@@ -66,8 +66,6 @@ class QuizController extends Controller
         $userRepo = \App::make('App\\Repositories\\FrontEnd\\UserRepository');
         $user = $userRepo->create($input);
         if ($user) {
-            // we broadcast the event
-            broadcast(new QuizWinnerEvent($quiz));
             // event(new QuizStart($user->quiz_id, $user->id, $user->name));
             \Auth::guard('web')->login($user);
             return redirect(route("quiz.play", [$slug]));
@@ -103,6 +101,9 @@ class QuizController extends Controller
         $result = $this->repo->quizStore($inputs, $slug);
         // dd($result);
         if ($result) {
+            // we broadcast the event
+            broadcast(new QuizWinnerEvent($slug));
+
             return redirect()->route('quiz.thankYou', $slug)->with('success', 'Thank you for attempt quiz!');
         } else {
             $auth_user = \Auth::guard('web')->user();
@@ -138,6 +139,29 @@ class QuizController extends Controller
             return view('frontEnd.quiz_dashboard',compact('userDetails'));
         }catch (\Exception $ex){
             Log::error($ex->getMessage());
+        }
+    }
+
+    public function winners($slug)
+    {
+        // dd("test");
+        try {
+            $winners = $this->repo->getWinnerList($slug);
+
+            return view('frontEnd.winner', compact('winners'));
+        }catch (\Exception $ex){
+            dd($ex);
+            Log::error($ex->getMessage());
+        }
+    }
+
+    public function fetchWinners($slug)
+    {
+        try {
+            return $this->repo->getWinnerList($slug);
+        }catch (\Exception $ex){
+            Log::error($ex->getMessage());
+            return [];
         }
     }
 

@@ -39,4 +39,6 @@ Route::prefix('quiz')->group(function () {
     });
     
     Route::post('/{slug}', 'FrontEnd\\QuizController@quizStore')->name('quiz.store');
+    Route::get('/{slug}/winners', 'FrontEnd\\QuizController@winners')->name('quiz.winners');
+    Route::get('/{slug}/fetch-winners', 'FrontEnd\\QuizController@fetchWinners')->name('quiz.fetchWinners');
 });
