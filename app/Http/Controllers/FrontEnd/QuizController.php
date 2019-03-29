@@ -138,4 +138,13 @@ class QuizController extends Controller
         }
     }
 
+    public function userDetails($slug)
+    {
+        $quiz = $this->repo->findBySlug($slug);
+
+        $userDetails = UserQuizResult::where('quiz_id',$quiz->id)->with('user')->get();
+
+        return response()->json(['userDetails' => $userDetails]);
+    }
+
 }

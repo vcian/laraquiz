@@ -39,4 +39,5 @@ Route::prefix('quiz')->group(function () {
     });
     
     Route::post('/{slug}', 'FrontEnd\\QuizController@quizStore')->name('quiz.store');
+    Route::get('/{slug}/user-details','FrontEnd\\QuizController@userDetails')->name('user.detail');
 });
