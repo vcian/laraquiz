@@ -9,14 +9,21 @@ use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
-use App\Repositories\QuizRepository;
 
 class QuizWinnerEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
+    /**
+     * Information about the shipping status update.
+     *
+     * @var string
+     */
+    public $quiz;
+
     /** @var object */
     protected $quizWinners;
+    protected $players;
 
     /**
      * Create a new event instance.
@@ -25,7 +32,9 @@ class QuizWinnerEvent implements ShouldBroadcast
      */
     public function __construct()
     {
-        $this->quizWinners = (new QuizRepository())->getWinnerList();
+        $quizRepo = App::make('App\Repositories\QuizRepository');
+        $this->quizWinners = $quizRepo->getWinnerList();
+        $this->$players = $quizRepo->getPlayerList();
     }
 
     /**

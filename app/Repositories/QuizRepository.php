@@ -259,4 +259,19 @@ class QuizRepository {
             ->get();
         return $winners;
     }
+
+    public function getPlayersList ()
+    {
+        // $players = UserQuizResult::select([
+        //         'TIMEDIFF(user_quiz_results.created_at, users.created_at) as diff', 
+        //         'users.*', 
+        //         'user_quiz_results.created_at as stop_time'
+        //     ])
+        //     ->join('users','user_quiz_results.user_id','=','users.id')
+        //     ->orderBy('user_quiz_results.total_right', 'desc')
+        //     ->orderBy('diff', 'asc')
+        //     ->take(3)
+        //     ->get();
+        // return $players;
+    }
 }
