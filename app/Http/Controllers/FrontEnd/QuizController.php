@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Repositories\QuizRepository;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Log;
+use App\Events\QuizWinnerEvent;
 
 class QuizController extends Controller
 {
@@ -52,19 +53,21 @@ class QuizController extends Controller
      */
     public function registerUser(Request $request, $slug)
     {
-        $quiz_id = Quiz::whereSlug($slug)->first()->id;
+        $quiz = Quiz::whereSlug($slug)->first();
         // dd($quiz_id);
         $request->validate([
             'full_name' => 'required|max:255',
-            'nick_name' => 'required|unique:users,nick_name,NULL,id,quiz_id,' . $quiz_id . '|max:255',
+            'nick_name' => 'required|unique:users,nick_name,NULL,id,quiz_id,' . $quiz->id . '|max:255',
         ]);
         
         $input = $request->all();
-        $input['quiz_id'] = $quiz_id;
+        $input['quiz_id'] = $quiz->id;
         $input['start_time'] = Now();
         $userRepo = \App::make('App\\Repositories\\FrontEnd\\UserRepository');
         $user = $userRepo->create($input);
         if ($user) {
+            // we broadcast the event
+            broadcast(new QuizWinnerEvent($quiz));
             // event(new QuizStart($user->quiz_id, $user->id, $user->name));
             \Auth::guard('web')->login($user);
             return redirect(route("quiz.play", [$slug]));
