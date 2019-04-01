@@ -16,20 +16,6 @@
                     </div>
                 </div>
             </div>
-            <!-- @foreach($responses as $response)
-                <div class="col-md-4">
-                    <div id="user_{{ $response->id }}" class="custom-container quiz-end">
-                        <div id="circle">
-                            <i class="fa fa-trophy bounce"></i>
-                        </div>
-                        <h1 style="margin-top:50px; ">{{ $response->full_name ?? '' }}</h1>
-                        <h1 align="center" style="font-size: 60px;">{{ $loop->iteration }}</h1>
-                        <div class="description">
-                            <i class="fa fa-clock-o end" aria-hidden="true"></i>  {{ date('i:s',strtotime($response->diff)) }}
-                        </div>
-                    </div>
-                </div>
-            @endforeach -->
 		</div>
 	</div>
 </template>

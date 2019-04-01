@@ -8,6 +8,7 @@ use App\Models\Question\Question;
 use App\Models\Question\QuestionOption;
 // use Illuminate\Support\Str;
 use App\Imports\QuestionsImport;
+use App\Models\User;
 use Carbon\Carbon;
 use DB;
 use Excel;
@@ -264,18 +265,12 @@ class QuizRepository {
         return $winners;
     }
 
-    public function getPlayersList ()
+    public function getPlayersList($slug)
     {
-        // $players = UserQuizResult::select([
-        //         'TIMEDIFF(user_quiz_results.created_at, users.created_at) as diff', 
-        //         'users.*', 
-        //         'user_quiz_results.created_at as stop_time'
-        //     ])
-        //     ->join('users','user_quiz_results.user_id','=','users.id')
-        //     ->orderBy('user_quiz_results.total_right', 'desc')
-        //     ->orderBy('diff', 'asc')
-        //     ->take(3)
-        //     ->get();
-        // return $players;
+        $quiz = $this->findBySlug($slug);
+
+        $players = User::where('quiz_id', $quiz->id)->orderByDesc('created_at')->get();
+
+        return $players;
     }
 }

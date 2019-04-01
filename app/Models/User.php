@@ -40,4 +40,9 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Quiz::class, 'user_quiz_results', 'user_id', 'quiz_id')->withTimestamps();
     }
+
+    public function quiz()
+    {
+        
+    }
 }

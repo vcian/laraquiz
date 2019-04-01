@@ -1,13 +1,8 @@
-@extends('layouts.app')
+@extends('layouts.blank')
 @push('styles')
    <link href="{{asset('css/dashboard.css')}}" rel="stylesheet">
 @endpush
 @section('content')
-    <div class="dashboard-main">
-        <div id="result">
-            <div id="new-user"></div>
-            {{--<user-component v-bind:users="users"></user-component>--}}
-            @include('frontEnd.partials.user_list_container')
-        </div>
-    </div>
+    <dashboard-component :slug="'{!! request()->route("slug") !!}'"></dashboard-component>
+    {{--@include('frontEnd.partials.user_list_container')--}}
 @endsection

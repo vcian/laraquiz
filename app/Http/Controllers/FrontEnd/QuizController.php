@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\FrontEnd;
 
+use App\Events\QuizDashboardEvent;
 use App\Models\Quiz\Quiz;
 use App\Models\Quiz\UserQuizResult;
 use Illuminate\Http\Request;
@@ -84,6 +85,10 @@ class QuizController extends Controller
         // dd($quiz);
         view()->share('title', $quiz->quiz_name);
         view()->share('quiz', $quiz);
+
+        // we broadcast the event
+        broadcast(new QuizDashboardEvent($slug));
+
         return view('frontEnd.quiz');
     }
 
@@ -101,6 +106,8 @@ class QuizController extends Controller
         $result = $this->repo->quizStore($inputs, $slug);
         // dd($result);
         if ($result) {
+            // we broadcast the event
+            broadcast(new QuizDashboardEvent($slug));
             // we broadcast the event
             broadcast(new QuizWinnerEvent($slug));
 
@@ -162,6 +169,16 @@ class QuizController extends Controller
         }catch (\Exception $ex){
             Log::error($ex->getMessage());
             return [];
+        }
+    }
+
+    public function fetchPlayers($slug)
+    {
+        try {
+            return $this->repo->getPlayersList($slug);
+        }catch (\Exception $ex){
+            Log::error($ex->getMessage());
+            return $ex->getMessage();
         }
     }
 
