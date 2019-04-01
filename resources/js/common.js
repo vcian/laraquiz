@@ -89,7 +89,7 @@ function tick() {
     if (countdown.length !== 0) {
         countdown.html(pretty);
         document.cookie = "LLQ_time=" + pretty;
-        console.log(pretty === '00:00')
+        //console.log(pretty === '00:00')
         if (pretty === '00:00') {
             $('#userQuizForm').submit();
         }

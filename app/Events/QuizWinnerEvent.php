@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+use App;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
@@ -34,7 +35,7 @@ class QuizWinnerEvent implements ShouldBroadcast
     {
         $this->quizSlug = $quizSlug;
         $quizRepo = App::make('App\Repositories\QuizRepository');
-        $this->winners = $quizRepo->getWinnerList();
+        $this->winners = $quizRepo->getWinnerList($quizSlug);
         // $this->$players = $quizRepo->getPlayerList();
     }
 
