@@ -10,7 +10,7 @@ body{
 }
 .custom-container {
     position: relative;
-    width: 218px;
+    width: 213px;
     height: 290px;
     background: #fff;
     padding: 20px 17px;
@@ -20,7 +20,7 @@ body{
     -moz-box-shadow: 0 7px 11px 4px rgba(71, 71, 71, 0.2);
     box-shadow: 0 7px 11px 4px rgba(71, 71, 71, 0.2);
     float: left;
-    margin: 30px 8px;
+    margin: 8px 0 0 8px;
 }
 .custom-container p{
     font-size: 17px !important;
