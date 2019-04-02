@@ -1,12 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="col-md-6 offset-md-3">
-        <div class="card">
-            {{-- <div class="card-header">{{ __('Login') }}</div> --}}
-
-            <div class="card-body">
-                {{ __('Sorry, Quiz is not published yet!!!') }}
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card form_top">
+                    <div class="card-body">
+                        {{ __('Sorry, Quiz is not published yet!!!') }}
+                    </div>
+                </div>
             </div>
         </div>
     </div>
