@@ -151,7 +151,6 @@ class QuizController extends Controller
 
     public function winners($slug)
     {
-        // dd("test");
         try {
             $winners = $this->repo->getWinnerList($slug);
 

@@ -410,6 +410,3 @@ table.compact tbody td {
   clip: rect(0, 0, 0, 0);
   border: 0;
 }
-.form_top {
-  top: 50%;
-}

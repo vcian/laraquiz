@@ -1,79 +1,32 @@
 <template>
-    <div>
-        <div v-if="quiz.users.length === 0">
-            <div class="list-head"></div>
-            <div class="list-contain">
-                <div class="list-type attempt">
-                    <div class="banner-title" align="center">
-                        <h1 align="center">{{ quiz.name ? quiz.name: '' }}</h1><br/>
-                    </div>
-                    <h1 class="txt" style=" text-align: center; text-transform: uppercase;color: red">
-                        <label>Quiz not started yet!</label>
-                    </h1>
-                </div>
+    <div class="dashboard-main">
+        <div v-for="user in users" :key="user.id" :id="user.id" class="custom-container quiz-start">
+            <div id="circle">
+                <i class="fa fa-check"></i>
+                <svg class="custom-loader" xmlns="http://www.w3.org/2000/svg" version="1.2" baseProfile="tiny" x="0" y="0" viewBox="0 0 200 200" xml:space="preserve"><path class="loaderreverse" d="M200 100c0-30.3-13.5-57.5-34.8-75.8 -4.8-4.1-12.2-3-15.8 2.3v0c-3 4.5-2.4 10.7 1.8 14.2 16.6 14.4 27.1 35.6 27.1 59.3s-10.5 44.9-27.1 59.3c-4.1 3.6-4.8 9.7-1.8 14.2v0c3.6 5.3 11 6.4 15.8 2.3C186.5 157.5 200 130.3 200 100z"/><path d="M156.7 100c0-14.9-5.8-28.5-15.2-38.6 -4.6-4.9-12.6-4.1-16.3 1.4l-0.4 0.6c-2.8 4.1-2.2 9.5 1.2 13.2 5.7 6.2 9.1 14.4 9.1 23.5 0 9-3.4 17.3-9.1 23.5 -3.3 3.7-3.9 9-1.2 13.2l0.4 0.6c3.7 5.6 11.7 6.3 16.3 1.4C150.9 128.5 156.7 114.9 156.7 100z"/></svg>
             </div>
-        </div>
-        <div v-else>
-            <div>
-                <div class="title" align="center">
-                    <h1 style="text-transform: uppercase;font-size: 50px">Contest Winners</h1>
-                </div>
-                <div class="dashboard-main">
-                    <div class="container">
-                        <div class="list-box" v-for="(winner, key) in quiz.result" style="width: 33.33%">
-                            <div class="list-inner completed">
-                                <div class="list-head" style="color:#fff;text-align:center;font-size:30px;">{{ winner.name ? winner.name : '' }}</div>
-                                <div class="list-contain">
-                                    <div style="text-align:center" class="result-data">
-                                        <h1 align="center" style="font-size: 60px;">{{ key+1 }}</h1>
-                                    </div>
-                                </div>
-                                <div class="list-footer" style="background:#259b24;color:#fff;padding:12px 10px; font-size: 30px;">
-                                    Time Taken : {{ winner.diff }}
-                                    <!--Time Taken : {{ date('i:s',strtotime($response->diff)) }}-->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div>
-                <div class="title" align="center">
-                    <h1 style="text-transform: uppercase;font-size: 50px">Quiz Status</h1>
-                </div>
-                <div v-for="user in quiz.users" class="list-box">
-                    <div class="list-inner" v-bind:class="[ user.quiz_complete ? 'completed': '' ]">
-                        <div class="list-head">{{user.name}}</div>
-                        <div class="list-contain">
-                            <div v-if="user.quiz_complete">
-                                <div style="text-align:center" class="result-data">
-                                    <img src="/img/tick-circle.png">
-                                    <h1 align="center">Thank you for attempt</h1>
-                                </div>
-                            </div>
-                            <div v-else>
-                                <div class="loader"></div>
-                                <h1 align="center">Quiz Started</h1>
-                            </div>
-                        </div>
-                        <div class="list-footer">
-                            Start Time: {{ user.start_time }}
-                            <br/>
-                            <span v-if="user.end_time">End Time: {{ user.end_time }}</span>
-                        </div>
-                    </div>
-                </div>
+            <h1>{{ user.user.full_name }}</h1>
+            <p class="reveal-text">Quiz In-Progress</p>
+            <div class="description">
+                <i class="fa fa-clock-o start" aria-hidden="true"></i> 10:00
             </div>
         </div>
     </div>
 </template>
 <script>
+    import axios from 'axios';
     export default {
-        props: ['quiz'],
-        data: function () {
+        data(){
             return {
-                users: 0
+                users:[]
             }
+        },
+        mounted() {
+            axios.get('http://laravel-quiz.org/quiz/laravel-31-march-2019/user-details').then((res)=>{
+                this.users = res.data.userDetails;
+            }).catch((error)=>{
+                console.error(error);
+            })
         }
     }
 </script>
