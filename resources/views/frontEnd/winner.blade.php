@@ -21,7 +21,7 @@
 		.custom-container {
 			position: relative;
 			width: 300px;
-			height: 300px;
+			height: 350px;
 			background: #fff;
 			padding: 20px 17px;
 			text-align: center;
@@ -104,7 +104,7 @@
 			font-size: 35px;
 		}
 		.title{
-			margin-top: 15%;
+			margin-top: 10%;
 			margin-bottom: 8%;
 		}
         .bounce {
@@ -136,7 +136,6 @@
             40% {transform: translateY(-30px);}
             60% {transform: translateY(-15px);}
         }
-
 	</style>
 @endpush
 @section('content')

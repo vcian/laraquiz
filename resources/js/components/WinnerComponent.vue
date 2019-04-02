@@ -10,6 +10,7 @@
                         <i class="fa fa-trophy bounce"></i>
                     </div>
                     <h1 style="margin-top:50px; ">{{ winner.full_name }}</h1>
+                    <h4 style="margin-top:20px; ">{{ '(' + winner.nick_name + ')' }}</h4>
                     <h1 align="center" style="font-size: 60px;">{{ (index + 1) }}</h1>
                     <div class="description">
                         <i class="fa fa-clock-o end" aria-hidden="true"></i>  {{ winner.diff }}
