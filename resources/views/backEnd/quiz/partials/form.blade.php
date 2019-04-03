@@ -49,8 +49,8 @@
     <div class="row">
         <div class="col-12">
             <hr class="mt-0">
-            <div class="col-6 offset-md-1">
-                <span class="text-danger"><b>Note* :</b> Either choose <a href="http://laravel-live-quiz-new.local/files/Laravel Live Quiz sample.xlsx">excel file</a> or add questions below</span>
+            <div class="col-7 offset-md-2">
+                <span class="text-danger"><b>Note* :</b> Either choose {!! Html::decode(link_to_route('admin.download.sample', 'Sample excel file', [], [], null)) !!} or add questions below</span>
             </div>
             <div class="col-6 offset-md-3">
                 <div class="custom-file">

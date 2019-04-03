@@ -4,5 +4,10 @@
     "/js/manifest.js": "/js/manifest.js",
     "/js/vendor.js": "/js/vendor.js",
     "/js/all.js": "/js/all.js",
-    "/css/all.css": "/css/all.css"
+    "/css/all.css": "/css/all.css",
+    "/css/dashboard.css": "/css/dashboard.css",
+    "/css/login.css": "/css/login.css",
+    "/css/winner.css": "/css/winner.css",
+    "/js/winner.js": "/js/winner.js",
+    "/js/quiz-login.js": "/js/quiz-login.js"
 }

@@ -20,6 +20,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Auth::routes();
 
     Route::resource('quiz', 'BackEnd\\QuizController');
+    Route::get('download-sample', 'BackEnd\QuizController@downloadSample')->name('download.sample');
     Route::get('/dashboard', 'HomeController@index')->name('dashboard');
 });
 

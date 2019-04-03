@@ -153,4 +153,10 @@ class QuizController extends Controller
                 ->with('error', __('There are some issue found.'));
         }
     }
+
+    public function downloadSample()
+    {
+        $headers = ['Cache-Control' => 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0'];
+        return response()->download(resource_path('files/Laravel Live Quiz sample.xlsx'), 'SampleQuizQuestions.xlsx', $headers);
+    }
 }
