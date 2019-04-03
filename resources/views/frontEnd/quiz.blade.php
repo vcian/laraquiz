@@ -6,7 +6,7 @@
     <div class="card">
         <div class="card-header">
             {{ $quiz->quiz_name ?? "" }}
-            <span id="countdown" class="float-right" data-time="{{ $quiz->time_limit ? date('i:s', strtotime($quiz->time_limit)) : '' }}" data-quiz="{{ $quiz->slug }}"></span>
+            <span id="countdown" class="float-right" data-time="{{ $quiz->time_limit ? substr($quiz->time_limit, 0, -3) : '' }}" data-quiz="{{ $quiz->slug }}"></span>
         </div>
 
         <div class="card-body">
