@@ -30,16 +30,18 @@
             }
         },
         created() {
-            this.fetchWinners();
             Echo.channel('quiz.' + this.slug)
                 .listen('QuizWinnerEvent', (e) => {
+                    console.log("event => " + JSON.stringify(e.winners));
                     this.winners = e.winners;
                 });
+            this.fetchWinners();
         },
 
         methods: {
             fetchWinners() {
                 axios.get('/quiz/' + this.slug + '/fetch-winners').then(response => {
+                    console.log("response => " + JSON.stringify(response.data));
                     this.winners = response.data;
                 });
             }

@@ -1931,16 +1931,18 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     var _this = this;
 
-    this.fetchWinners();
     Echo.channel('quiz.' + this.slug).listen('QuizWinnerEvent', function (e) {
+      console.log("event => " + JSON.stringify(e.winners));
       _this.winners = e.winners;
     });
+    this.fetchWinners();
   },
   methods: {
     fetchWinners: function fetchWinners() {
       var _this2 = this;
 
       axios.get('/quiz/' + this.slug + '/fetch-winners').then(function (response) {
+        console.log("response => " + JSON.stringify(response.data));
         _this2.winners = response.data;
       });
     }

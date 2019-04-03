@@ -2,7 +2,6 @@
 
 namespace App\Events;
 
-use App;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
@@ -20,7 +19,7 @@ class QuizWinnerEvent implements ShouldBroadcast
      *
      * @var string
      */
-    public $quizSlug;
+    private $quizSlug;
 
     /** @var object */
     public $winners;
@@ -34,9 +33,6 @@ class QuizWinnerEvent implements ShouldBroadcast
     public function __construct(String $quizSlug)
     {
         $this->quizSlug = $quizSlug;
-        $quizRepo = App::make('App\Repositories\QuizRepository');
-        $this->winners = $quizRepo->getWinnerList($quizSlug);
-        // $this->$players = $quizRepo->getPlayerList();
     }
 
     /**
@@ -46,6 +42,8 @@ class QuizWinnerEvent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
+        $quizRepo = \App::make('App\Repositories\QuizRepository');
+        $this->winners = $quizRepo->getWinnerList($this->quizSlug);
         return new Channel('quiz.' . $this->quizSlug);
     }
 }

@@ -262,6 +262,7 @@ class QuizRepository {
             ->orderBy('diff', 'asc')
             ->take(3)
             ->get();
+
         return $winners;
     }
 
