@@ -1751,7 +1751,7 @@ __webpack_require__.r(__webpack_exports__);
 
     this.fetchPlayers();
     Echo.channel('quiz-dashboard.' + this.slug).listen('QuizDashboardEvent', function (e) {
-      _this.players = e.players.reverse();
+      _this.players = e.players;
     });
   },
   methods: {
