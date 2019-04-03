@@ -16,6 +16,11 @@ class UserQuizResult extends Pivot
      */
     protected $fillable = ['user_id', 'quiz_id', 'total_attempted', 'total_skipped', 'total_wrong', 'total_right'];
 
+    /**
+     * Relationship with user table
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function user()
     {
       return $this->belongsTo(User::class,'user_id');

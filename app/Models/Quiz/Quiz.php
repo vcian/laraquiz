@@ -8,7 +8,6 @@ use App\Models\Question\Question;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
 use App\Models\User;
-use App\Models\Quiz\UserQuizResult;
 use Auth;
 
 class Quiz extends Model
@@ -22,8 +21,6 @@ class Quiz extends Model
      * @var array
      */
     protected $fillable = ['quiz_name', 'admin_id', 'slug', 'time_limit', 'start_time', 'end_time', 'status'];
-
-    // protected $guarded = ['id'];
 
     /**
      * Set the proper slug attribute.
@@ -51,7 +48,8 @@ class Quiz extends Model
     /**
      * get the proper time limit attribute.
      *
-     * @param string $value
+     * @param $value
+     * @return string
      */
     public function getTimeLimitAttribute($value)
     {

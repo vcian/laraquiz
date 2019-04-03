@@ -4,7 +4,6 @@ namespace App\Http\Controllers\FrontEnd;
 
 use App\Events\QuizDashboardEvent;
 use App\Models\Quiz\Quiz;
-use App\Models\Quiz\UserQuizResult;
 use Illuminate\Http\Request;
 use App\Repositories\QuizRepository;
 use App\Http\Controllers\Controller;
@@ -14,6 +13,7 @@ use App\Events\QuizWinnerEvent;
 class QuizController extends Controller
 {
     protected $repo;
+
     /**
      * Create a new controller instance.
      *
@@ -24,6 +24,7 @@ class QuizController extends Controller
         $this->middleware('auth:web')->only(['quizStart', 'thankYou']);
         $this->middleware('guest:web')->only(['index', 'registerUser']);
         $this->repo = $quizRepo;
+
         view()->share('title', 'Quiz');
     }
 
@@ -34,7 +35,6 @@ class QuizController extends Controller
      */
     public function index($slug)
     {
-        // \Auth::logout();
         if($this->repo->quizExists($slug)) {
             if ($this->repo->checkStartTime($slug)) { // check quiz time is started to play
                 view()->share('slug', $slug);
@@ -42,6 +42,7 @@ class QuizController extends Controller
             }
             return view('frontEnd.not_yet_started');
         }
+
         return abort('404');
     }
 
@@ -55,7 +56,7 @@ class QuizController extends Controller
     public function registerUser(Request $request, $slug)
     {
         $quiz = Quiz::whereSlug($slug)->first();
-        // dd($quiz_id);
+
         $request->validate([
             'full_name' => 'required|max:255',
             'nick_name' => 'required|unique:users,nick_name,NULL,id,quiz_id,' . $quiz->id . '|max:255',
@@ -64,29 +65,32 @@ class QuizController extends Controller
         $input = $request->all();
         $input['quiz_id'] = $quiz->id;
         $input['start_time'] = Now();
+
         $userRepo = \App::make('App\\Repositories\\FrontEnd\\UserRepository');
         $user = $userRepo->create($input);
+
         if ($user) {
-            // event(new QuizStart($user->quiz_id, $user->id, $user->name));
             \Auth::guard('web')->login($user);
             return redirect(route("quiz.play", [$slug]));
         };
+
         return back()
                 ->with('error', __('There are some issue found. Try Again!'));
     }
 
     /**
      * List the questions of the quiz
-     * 
+     *
+     * @param $slug
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function quizStart($slug)
     {
         $quiz = $this->repo->findBySlug($slug);
-        // dd($quiz);
+
         view()->share('title', $quiz->quiz_name);
         view()->share('quiz', $quiz);
 
-        // we broadcast the event
         broadcast(new QuizDashboardEvent($slug));
 
         return view('frontEnd.quiz');
@@ -101,51 +105,52 @@ class QuizController extends Controller
      */
     public function quizStore(Request $request, $slug)
     {
-        // dd($request->all());
         $inputs = $request->all();
         $result = $this->repo->quizStore($inputs, $slug);
-        // dd($result);
+
         if ($result) {
-            // we broadcast the event
+
             broadcast(new QuizDashboardEvent($slug));
-            // we broadcast the event
+
             broadcast(new QuizWinnerEvent($slug));
 
-            return redirect()->route('quiz.thankYou', $slug)->with('success', 'Thank you for attempt quiz!');
+            return redirect()
+                ->route('quiz.thankYou', $slug)
+                ->with('success', 'Thank you for attempt quiz!');
         } else {
-            $auth_user = \Auth::guard('web')->user();
             \Auth::guard('web')->logout();
-            $auth_user->delete();
-            return redirect()->route('quiz.login', $slug)->with('error', 'Sorry, There are some issue found. Try Again!');
+
+            return redirect()
+                ->route('quiz.login', $slug)
+                ->with('error', 'Sorry, There are some issue found. Try Again!');
         }
     }
 
     /**
      * Show Thank you page after quiz submission.
      *
-     * @param  \App\Models\Quiz\Quiz  $quiz
-     * @return \Illuminate\Http\Response
+     * @param  $slug
+     * @return bool
      */
     public function thankYou($slug)
     {
         try {
             \Auth::guard('web')->logout();
+
             return view('frontEnd.thankyou');
         } catch (\Exception $ex) {
             Log::error($ex->getMessage());
+            return $ex->getMessage();
         }
     }
 
     public function dashboard($slug)
     {
         try {
-            $quiz = $this->repo->findBySlug($slug);
-
-            $userDetails = UserQuizResult::where('quiz_id',$quiz->id)->with('user')->get();
-
-            return view('frontEnd.quiz_dashboard',compact('userDetails'));
-        }catch (\Exception $ex){
+            return view('frontEnd.quiz_dashboard');
+        } catch (\Exception $ex) {
             Log::error($ex->getMessage());
+            return $ex->getMessage();
         }
     }
 
@@ -154,8 +159,8 @@ class QuizController extends Controller
         try {
             return view('frontEnd.winner');
         }catch (\Exception $ex){
-            dd($ex);
             Log::error($ex->getMessage());
+            return $ex->getMessage();
         }
     }
 
@@ -165,7 +170,7 @@ class QuizController extends Controller
             return $this->repo->getWinnerList($slug);
         }catch (\Exception $ex){
             Log::error($ex->getMessage());
-            return [];
+            return $ex->getMessage();
         }
     }
 
