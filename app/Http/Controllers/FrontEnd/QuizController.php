@@ -151,7 +151,6 @@ class QuizController extends Controller
 
     public function winners($slug)
     {
-        // dd("test");
         try {
             return view('frontEnd.winner');
         }catch (\Exception $ex){

@@ -1809,6 +1809,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -1824,66 +1826,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['quiz'],
   data: function data() {
     return {
-      users: 0
+      users: []
     };
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('http://laravel-quiz.org/quiz/laravel-31-march-2019/user-details').then(function (res) {
+      _this.users = res.data.userDetails;
+    }).catch(function (error) {
+      console.error(error);
+    });
   }
 });
 
@@ -65585,217 +65542,76 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _vm.quiz.users.length === 0
-      ? _c("div", [
-          _c("div", { staticClass: "list-head" }),
-          _vm._v(" "),
-          _c("div", { staticClass: "list-contain" }, [
-            _c("div", { staticClass: "list-type attempt" }, [
-              _c(
-                "div",
-                { staticClass: "banner-title", attrs: { align: "center" } },
-                [
-                  _c("h1", { attrs: { align: "center" } }, [
-                    _vm._v(_vm._s(_vm.quiz.name ? _vm.quiz.name : ""))
-                  ]),
-                  _c("br")
-                ]
-              ),
-              _vm._v(" "),
-              _vm._m(0)
-            ])
-          ])
-        ])
-      : _c("div", [
-          _c("div", [
-            _vm._m(1),
+  return _c(
+    "div",
+    { staticClass: "dashboard-main" },
+    _vm._l(_vm.users, function(user) {
+      return _c(
+        "div",
+        {
+          key: user.id,
+          staticClass: "custom-container quiz-start",
+          attrs: { id: user.id }
+        },
+        [
+          _c("div", { attrs: { id: "circle" } }, [
+            _c("i", { staticClass: "fa fa-check" }),
             _vm._v(" "),
-            _c("div", { staticClass: "dashboard-main" }, [
-              _c(
-                "div",
-                { staticClass: "container" },
-                _vm._l(_vm.quiz.result, function(winner, key) {
-                  return _c(
-                    "div",
-                    {
-                      staticClass: "list-box",
-                      staticStyle: { width: "33.33%" }
-                    },
-                    [
-                      _c("div", { staticClass: "list-inner completed" }, [
-                        _c(
-                          "div",
-                          {
-                            staticClass: "list-head",
-                            staticStyle: {
-                              color: "#fff",
-                              "text-align": "center",
-                              "font-size": "30px"
-                            }
-                          },
-                          [_vm._v(_vm._s(winner.name ? winner.name : ""))]
-                        ),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "list-contain" }, [
-                          _c(
-                            "div",
-                            {
-                              staticClass: "result-data",
-                              staticStyle: { "text-align": "center" }
-                            },
-                            [
-                              _c(
-                                "h1",
-                                {
-                                  staticStyle: { "font-size": "60px" },
-                                  attrs: { align: "center" }
-                                },
-                                [_vm._v(_vm._s(key + 1))]
-                              )
-                            ]
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c(
-                          "div",
-                          {
-                            staticClass: "list-footer",
-                            staticStyle: {
-                              background: "#259b24",
-                              color: "#fff",
-                              padding: "12px 10px",
-                              "font-size": "30px"
-                            }
-                          },
-                          [
-                            _vm._v(
-                              "\n                                Time Taken : " +
-                                _vm._s(winner.diff) +
-                                "\n                                "
-                            )
-                          ]
-                        )
-                      ])
-                    ]
-                  )
+            _c(
+              "svg",
+              {
+                staticClass: "custom-loader",
+                attrs: {
+                  xmlns: "http://www.w3.org/2000/svg",
+                  version: "1.2",
+                  baseProfile: "tiny",
+                  x: "0",
+                  y: "0",
+                  viewBox: "0 0 200 200",
+                  "xml:space": "preserve"
+                }
+              },
+              [
+                _c("path", {
+                  staticClass: "loaderreverse",
+                  attrs: {
+                    d:
+                      "M200 100c0-30.3-13.5-57.5-34.8-75.8 -4.8-4.1-12.2-3-15.8 2.3v0c-3 4.5-2.4 10.7 1.8 14.2 16.6 14.4 27.1 35.6 27.1 59.3s-10.5 44.9-27.1 59.3c-4.1 3.6-4.8 9.7-1.8 14.2v0c3.6 5.3 11 6.4 15.8 2.3C186.5 157.5 200 130.3 200 100z"
+                  }
                 }),
-                0
-              )
-            ])
+                _c("path", {
+                  attrs: {
+                    d:
+                      "M156.7 100c0-14.9-5.8-28.5-15.2-38.6 -4.6-4.9-12.6-4.1-16.3 1.4l-0.4 0.6c-2.8 4.1-2.2 9.5 1.2 13.2 5.7 6.2 9.1 14.4 9.1 23.5 0 9-3.4 17.3-9.1 23.5 -3.3 3.7-3.9 9-1.2 13.2l0.4 0.6c3.7 5.6 11.7 6.3 16.3 1.4C150.9 128.5 156.7 114.9 156.7 100z"
+                  }
+                })
+              ]
+            )
           ]),
           _vm._v(" "),
-          _c(
-            "div",
-            [
-              _vm._m(2),
-              _vm._v(" "),
-              _vm._l(_vm.quiz.users, function(user) {
-                return _c("div", { staticClass: "list-box" }, [
-                  _c(
-                    "div",
-                    {
-                      staticClass: "list-inner",
-                      class: [user.quiz_complete ? "completed" : ""]
-                    },
-                    [
-                      _c("div", { staticClass: "list-head" }, [
-                        _vm._v(_vm._s(user.name))
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "list-contain" }, [
-                        user.quiz_complete
-                          ? _c("div", [_vm._m(3, true)])
-                          : _c("div", [
-                              _c("div", { staticClass: "loader" }),
-                              _vm._v(" "),
-                              _c("h1", { attrs: { align: "center" } }, [
-                                _vm._v("Quiz Started")
-                              ])
-                            ])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "list-footer" }, [
-                        _vm._v(
-                          "\n                        Start Time: " +
-                            _vm._s(user.start_time) +
-                            "\n                        "
-                        ),
-                        _c("br"),
-                        _vm._v(" "),
-                        user.end_time
-                          ? _c("span", [
-                              _vm._v("End Time: " + _vm._s(user.end_time))
-                            ])
-                          : _vm._e()
-                      ])
-                    ]
-                  )
-                ])
-              })
-            ],
-            2
-          )
-        ])
-  ])
+          _c("h1", [_vm._v(_vm._s(user.user.full_name))]),
+          _vm._v(" "),
+          _c("p", { staticClass: "reveal-text" }, [_vm._v("Quiz In-Progress")]),
+          _vm._v(" "),
+          _vm._m(0, true)
+        ]
+      )
+    }),
+    0
+  )
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "h1",
-      {
-        staticClass: "txt",
-        staticStyle: {
-          "text-align": "center",
-          "text-transform": "uppercase",
-          color: "red"
-        }
-      },
-      [_c("label", [_vm._v("Quiz not started yet!")])]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "title", attrs: { align: "center" } }, [
-      _c(
-        "h1",
-        { staticStyle: { "text-transform": "uppercase", "font-size": "50px" } },
-        [_vm._v("Contest Winners")]
-      )
+    return _c("div", { staticClass: "description" }, [
+      _c("i", {
+        staticClass: "fa fa-clock-o start",
+        attrs: { "aria-hidden": "true" }
+      }),
+      _vm._v(" 10:00\n        ")
     ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "title", attrs: { align: "center" } }, [
-      _c(
-        "h1",
-        { staticStyle: { "text-transform": "uppercase", "font-size": "50px" } },
-        [_vm._v("Quiz Status")]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "result-data", staticStyle: { "text-align": "center" } },
-      [
-        _c("img", { attrs: { src: "/img/tick-circle.png" } }),
-        _vm._v(" "),
-        _c("h1", { attrs: { align: "center" } }, [
-          _vm._v("Thank you for attempt")
-        ])
-      ]
-    )
   }
 ]
 render._withStripped = true
@@ -66015,12 +65831,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
+/* harmony import */ var _components_UsersComponent__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/UsersComponent */ "./resources/js/components/UsersComponent.vue");
+/* harmony import */ var _components_ExampleComponent__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/ExampleComponent */ "./resources/js/components/ExampleComponent.vue");
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
-__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js"); // window.Vue = require('vue');
+__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
+
+window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 
 
 
@@ -66038,9 +65858,9 @@ var files = __webpack_require__("./resources/js sync recursive \\.vue$/");
 
 files.keys().map(function (key) {
   return vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(key.split('/').pop().split('.')[0], files(key).default);
-}); // Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-// Vue.component("user-component", require("./components/UsersComponent.vue"));
-
+});
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('example-component', _components_ExampleComponent__WEBPACK_IMPORTED_MODULE_3__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('user-component', _components_UsersComponent__WEBPACK_IMPORTED_MODULE_2__["default"]);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -66109,7 +65929,7 @@ if (token) {
 window.Pusher = __webpack_require__(/*! pusher-js */ "./node_modules/pusher-js/dist/web/pusher.js");
 window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
   broadcaster: 'pusher',
-  key: "myKey",
+  key: "websocketkey",
   wsHost: window.location.hostname,
   wsPort: 6001,
   disableStats: true
@@ -66498,8 +66318,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /var/www/html/laravel-live-quiz-new/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /var/www/html/laravel-live-quiz-new/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /var/www/html/laravel-quiz/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /var/www/html/laravel-quiz/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
