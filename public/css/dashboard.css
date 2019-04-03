@@ -10,8 +10,8 @@ body{
 }
 .custom-container {
     position: relative;
-    width: 218px;
-    height: 290px;
+    width: 245px;
+    height: 218px;
     background: #fff;
     padding: 20px 17px;
     text-align: center;
@@ -20,7 +20,7 @@ body{
     -moz-box-shadow: 0 7px 11px 4px rgba(71, 71, 71, 0.2);
     box-shadow: 0 7px 11px 4px rgba(71, 71, 71, 0.2);
     float: left;
-    margin: 30px 8px;
+    margin: 45px 8px;
 }
 .custom-container p{
     font-size: 17px !important;
@@ -48,7 +48,26 @@ button {
     letter-spacing: 1px;
 }
 
-
+#circle {
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    background: #73c242;
+    border-radius: 50%;
+    text-align: center;
+    top: -35px;
+    left: 86px;
+    right: 86px;
+}
+#circle i{
+    font-size: 30px;
+    line-height: 30px;
+}
+i {
+    color: white;
+    margin: 21px;
+    font-size: 30px;
+}
 .quiz-start #circle{
     background: #ff356d !important;
 }
@@ -264,7 +283,7 @@ button {
 .custom-loader {
     width: 50px;
     height: 50px;
-    margin-top: 15px;
+    margin-top: 10px;
 }
 .custom-loader path {
     fill: #fff;

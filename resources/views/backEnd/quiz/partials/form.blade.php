@@ -50,7 +50,7 @@
         <div class="col-12">
             <hr class="mt-0">
             <div class="col-6 offset-md-1">
-                <span class="text-danger"><b>Note* :</b> Either choose excel file or Add questions below</span>
+                <span class="text-danger"><b>Note* :</b> Either choose <a href="http://laravel-live-quiz-new.local/files/Laravel Live Quiz sample.xlsx">excel file</a> or add questions below</span>
             </div>
             <div class="col-6 offset-md-3">
                 <div class="custom-file">

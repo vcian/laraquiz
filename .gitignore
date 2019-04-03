@@ -14,3 +14,7 @@ yarn-error.log
 # Rocketeer PHP task runner and deployment package. https://github.com/rocketeers/rocketeer
 .rocketeer/
 /.idea
+.idea/laravel-quiz.iml
+.idea/workspace.xml
+public/js/all.js
+public/js/app.js

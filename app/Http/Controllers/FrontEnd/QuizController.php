@@ -152,9 +152,7 @@ class QuizController extends Controller
     public function winners($slug)
     {
         try {
-            $winners = $this->repo->getWinnerList($slug);
-
-            return view('frontEnd.winner', compact('winners'));
+            return view('frontEnd.winner');
         }catch (\Exception $ex){
             dd($ex);
             Log::error($ex->getMessage());
