@@ -38,7 +38,7 @@
             this.fetchPlayers();
             Echo.channel('quiz-dashboard.' + this.slug)
                 .listen('QuizDashboardEvent', (e) => {
-                    this.players = e.players.reverse();
+                    this.players = e.players;
                 });
         },
 

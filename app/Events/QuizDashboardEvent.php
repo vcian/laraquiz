@@ -33,8 +33,6 @@ class QuizDashboardEvent implements ShouldBroadcast
     public function __construct(String $quizSlug)
     {
         $this->quizSlug = $quizSlug;
-        $quizRepo = \App::make('App\Repositories\QuizRepository');
-        $this->players = $quizRepo->getPlayersList($quizSlug);
     }
 
     /**
@@ -44,6 +42,8 @@ class QuizDashboardEvent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
+        $quizRepo = \App::make('App\Repositories\QuizRepository');
+        $this->players = $quizRepo->getPlayersList($this->quizSlug);
         return new Channel('quiz-dashboard.' . $this->quizSlug);
     }
 }

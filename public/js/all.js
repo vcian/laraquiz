@@ -3408,7 +3408,11 @@ function countDown() {
             seconds = +parts[1];
         return (minutes * 60 + seconds).toFixed(3);
     } else {
-        return (10 * 60);
+        var rootTime = $("#countdown").attr('data-time');
+        if (isNaN(rootTime))
+            return (10 * 60);
+        else
+            return (rootTime * 60);
     }
 }
 
