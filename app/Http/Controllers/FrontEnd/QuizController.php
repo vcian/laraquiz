@@ -9,6 +9,7 @@ use App\Repositories\QuizRepository;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Log;
 use App\Events\QuizWinnerEvent;
+use Illuminate\Support\Facades\Validator;
 
 class QuizController extends Controller
 {
@@ -35,7 +36,7 @@ class QuizController extends Controller
      */
     public function index($slug)
     {
-        if($this->repo->quizExists($slug)) {
+        if ($this->repo->quizExists($slug)) {
             if ($this->repo->checkStartTime($slug)) { // check quiz time is started to play
                 view()->share('slug', $slug);
                 return view('frontEnd.quiz_login');
@@ -49,7 +50,7 @@ class QuizController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @param String $slug
      * @return \Illuminate\Http\Response
      */
@@ -59,9 +60,11 @@ class QuizController extends Controller
 
         $request->validate([
             'full_name' => 'required|max:255',
-            'nick_name' => 'required|unique:users,nick_name,NULL,id,quiz_id,' . $quiz->id . '|max:255',
+            'nick_name' => 'required|unique:users,nick_name,NULL,id,quiz_id,' . $quiz->id . '|max:255|regex:/^[ A-Za-z0-9_@#&$-]*$/',
+        ],[
+            'nick_name.regex' => 'Allow alphanumeric with special characters like _,@,#,&,$,-'
         ]);
-        
+
         $input = $request->all();
         $input['quiz_id'] = $quiz->id;
         $input['start_time'] = Now();
@@ -75,7 +78,7 @@ class QuizController extends Controller
         };
 
         return back()
-                ->with('error', __('There are some issue found. Try Again!'));
+            ->with('error', __('There are some issue found. Try Again!'));
     }
 
     /**
@@ -98,8 +101,8 @@ class QuizController extends Controller
 
     /**
      * Submit the quiz and store the records
-     * 
-     * @param  \Illuminate\Http\Request  $request
+     *
+     * @param  \Illuminate\Http\Request $request
      * @param String $slug
      * @return \Illuminate\Http\Response
      */
@@ -119,7 +122,6 @@ class QuizController extends Controller
                 ->with('success', 'Thank you for attempt quiz!');
         } else {
             \Auth::guard('web')->logout();
-
             return redirect()
                 ->route('quiz.login', $slug)
                 ->with('error', 'Sorry, There are some issue found. Try Again!');
@@ -158,7 +160,7 @@ class QuizController extends Controller
     {
         try {
             return view('frontEnd.winner');
-        }catch (\Exception $ex){
+        } catch (\Exception $ex) {
             Log::error($ex->getMessage());
             return $ex->getMessage();
         }
@@ -168,7 +170,7 @@ class QuizController extends Controller
     {
         try {
             return $this->repo->getWinnerList($slug);
-        }catch (\Exception $ex){
+        } catch (\Exception $ex) {
             Log::error($ex->getMessage());
             return $ex->getMessage();
         }
@@ -178,7 +180,7 @@ class QuizController extends Controller
     {
         try {
             return $this->repo->getPlayersList($slug);
-        }catch (\Exception $ex){
+        } catch (\Exception $ex) {
             Log::error($ex->getMessage());
             return $ex->getMessage();
         }

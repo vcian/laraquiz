@@ -65446,7 +65446,7 @@ var render = function() {
                 }),
                 _vm._v(
                   " " +
-                    _vm._s(_vm.moment(player.start_time).format("mm:ss")) +
+                    _vm._s(_vm.moment(player.start_time).format("hh:mm:ss")) +
                     "\n                    "
                 ),
                 player.end_time
@@ -65459,7 +65459,9 @@ var render = function() {
                       }),
                       _vm._v(
                         " " +
-                          _vm._s(_vm.moment(player.end_time).format("mm:ss")) +
+                          _vm._s(
+                            _vm.moment(player.end_time).format("hh:mm:ss")
+                          ) +
                           "\n                    "
                       )
                     ])
@@ -66318,8 +66320,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /var/www/html/laravel-live-quiz-new/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /var/www/html/laravel-live-quiz-new/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! E:\xampp\htdocs\laravel-live-quiz-new\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! E:\xampp\htdocs\laravel-live-quiz-new\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
