@@ -23,7 +23,6 @@
                         {{ Form::submit(__('Click Here To Play Quiz'), ['class' => 'btn btn-sm']) }}
                     </div>
                 </div>
-                {{-- <button id="login" class="btn" type="submit" >Take Quiz</button> --}}
             {{ Form::close() }}
         </div>
     </div>
