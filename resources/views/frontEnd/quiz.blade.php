@@ -24,18 +24,7 @@
                                         {{ Form::label('options' . $option->id, $option->option, ['class' => 'custom-control-label']) }}
                                     </div>
                                 @endforeach
-                                {{-- <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                                <small>Donec id elit non mi porta.</small> --}}
                             </div>
-                                {{-- <li class="list-group-item">
-                                    <h5>{{$question->question}}</h5>
-                                    @foreach($question->options as $option)
-                                        <div class="custom-control custom-radio ">
-                                            {{ Form::radio('options[' . $question->id . ']', $option->id, false, ['class' => 'custom-control-input', 'id' => 'options' . $option->id]) }}
-                                            {{ Form::label('options' . $option->id, $option->option, ['class' => 'custom-control-label']) }}
-                                        </div>
-                                    @endforeach
-                                </li> --}}
                         @endforeach
                     </div>
                     {{ Form::hidden('total_q', count($quiz->questions)) }}
