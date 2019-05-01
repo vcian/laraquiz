@@ -91,6 +91,7 @@ function tick() {
         document.cookie = "LLQ_time=" + pretty;
         //console.log(pretty === '00:00')
         if (pretty === '00:00') {
+            delete_cookie('LLQ_time');
             $('#userQuizForm').submit();
         }
     }
@@ -119,7 +120,11 @@ function getCookie(name) {
 }
 startTimer(countDown());
 
-delete_cookie = function (name, path) {
-    document.cookie = name + '=;Expires=Thu, 01 Jan 1970 00:00:01 GMT; Path=' + path;
+$(".clear-cookie").click(function(){
+    delete_cookie('LLQ_time');
+});
+
+delete_cookie = function (name) {
+    document.cookie = name + '=;Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 };
 /** Quiz Timer - End */

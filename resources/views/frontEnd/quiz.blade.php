@@ -40,7 +40,7 @@
                     </div>
                     {{ Form::hidden('total_q', count($quiz->questions)) }}
                 </div>
-                {{ Form::submit(__('Submit'), ['class' => 'btn btn-sm btn-primary']) }}
+                {{ Form::submit(__('Submit'), ['class' => 'btn btn-sm btn-primary clear-cookie']) }}
             {!! Form::close() !!}
         </div>
     </div>
