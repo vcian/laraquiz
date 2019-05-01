@@ -4,12 +4,12 @@
 
 @section('content')
     <div class="card">
-        <div class="card-header">
+        <div class="card-header fixed-top bg-light">
             {{ $quiz->quiz_name ?? "" }}
             <span id="countdown" class="float-right" data-time="{{ $quiz->time_limit ? substr($quiz->time_limit, 0, -3) : '' }}" data-quiz="{{ $quiz->slug }}"></span>
         </div>
 
-        <div class="card-body">
+        <div class="card-body mt-5">
             {!! Form::open(['route' => ['quiz.store', $quiz->slug], 'class' => 'js-frm-create-user userQuizForm', 'role' => 'form', 'id' => 'userQuizForm', 'enctype' => 'multipart/form-data']) !!}
                 <div class="form-group">
                     <div class="list-group">
