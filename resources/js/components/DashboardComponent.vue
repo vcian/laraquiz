@@ -11,10 +11,10 @@
                     <p v-if="player.end_time">Thank You.</p>
                     <p v-else class="reveal-text">Quiz In-Progress</p>
                     <div class="description">
-                        <i class="fa fa-clock-o start" aria-hidden="true"></i> {{ moment(player.start_time).format('mm:ss') }}
+                        <i class="fa fa-clock-o start" aria-hidden="true"></i> {{ moment(player.start_time).format('hh:mm:ss') }}
                         <div v-if="player.end_time">
                             <div class="clearfix"></div>
-                            <i class="fa fa-clock-o end" aria-hidden="true"></i> {{ moment(player.end_time).format('mm:ss') }}
+                            <i class="fa fa-clock-o end" aria-hidden="true"></i> {{ moment(player.end_time).format('hh:mm:ss') }}
                         </div>
                     </div>
                 </div>

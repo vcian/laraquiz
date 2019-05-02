@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Admin extends Authenticatable
@@ -13,6 +12,7 @@ class Admin extends Authenticatable
     protected $guard = 'admin';
 
     protected $table = "admins";
+
     /**
      * The attributes that aren't mass assignable.
      *

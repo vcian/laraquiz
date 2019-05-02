@@ -20,9 +20,6 @@
         crossorigin="anonymous">
     </script>
 
-    <!-- Font Awesome's 4 Free CDN -->
-    {{-- <script src="https://use.fontawesome.com/02bc193ac8.js"></script> --}}
-
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/all.css') }}" rel="stylesheet">

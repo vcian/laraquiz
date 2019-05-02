@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 class QuizController extends Controller
 {
     protected $repo;
+
     /**
      * Create a new controller instance.
      *
@@ -18,7 +19,9 @@ class QuizController extends Controller
     public function __construct(QuizRepository $quizRepo)
     {
         $this->middleware('auth:admin');
+
         $this->repo = $quizRepo;
+
         view()->share('title', 'Quiz');
     }
 
@@ -32,6 +35,7 @@ class QuizController extends Controller
         $quizzes = $this->repo->index();
 
         view()->share('quizzes', $quizzes);
+
         return view('backEnd.quiz.index');
     }
 
@@ -71,23 +75,14 @@ class QuizController extends Controller
 
         $inputs = $request->all();
         if ($this->repo->create($inputs)) {
-            return redirect()->route('admin.quiz.index')->with('success', __('Quiz created successfully!'));
+            return redirect()
+                ->route('admin.quiz.index')
+                ->with('success', __('Quiz created successfully!'));
         } else {
             return back()
                 ->withInput()
                 ->with('error', __('There are some issue found.'));
         }
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Quiz\Quiz  $quiz
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Quiz $quiz)
-    {
-
     }
 
     /**
@@ -99,8 +94,9 @@ class QuizController extends Controller
     public function edit(Quiz $quiz)
     {
         $quiz = $this->repo->find($quiz->id);
-        // dd($quiz);
+
         view()->share('quiz', $quiz);
+
         return view('backEnd.quiz.edit');
     }
 
@@ -108,7 +104,7 @@ class QuizController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Quiz\Quiz  $quiz
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -128,8 +124,11 @@ class QuizController extends Controller
         ]);
 
         $inputs = $request->all();
+
         if ($this->repo->update($inputs, $id)) {
-            return redirect()->route('admin.quiz.index')->with('success', __('Quiz updated successfully!'));
+            return redirect()
+                ->route('admin.quiz.index')
+                ->with('success', __('Quiz updated successfully!'));
         } else {
             return back()
                 ->withInput()
@@ -146,7 +145,9 @@ class QuizController extends Controller
     public function destroy(Quiz $quiz)
     {
         if ($this->repo->delete($quiz->id)) {
-            return redirect()->route('admin.quiz.index')->with('success', __('Quiz deleted successfully!'));
+            return redirect()
+                ->route('admin.quiz.index')
+                ->with('success', __('Quiz deleted successfully!'));
         } else {
             return back()
                 ->withInput()
@@ -157,6 +158,8 @@ class QuizController extends Controller
     public function downloadSample()
     {
         $headers = ['Cache-Control' => 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0'];
-        return response()->download(resource_path('files/Laravel Live Quiz sample.xlsx'), 'SampleQuizQuestions.xlsx', $headers);
+
+        return response()
+            ->download(resource_path('files/Laravel Live Quiz sample.xlsx'), 'SampleQuizQuestions.xlsx', $headers);
     }
 }

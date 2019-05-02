@@ -11,11 +11,6 @@
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
-// Route::get('/{any}', 'SinglePageController@index')->where('any', '.*');
 Route::prefix('admin')->name('admin.')->group(function () {
     Auth::routes();
 

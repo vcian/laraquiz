@@ -65446,7 +65446,7 @@ var render = function() {
                 }),
                 _vm._v(
                   " " +
-                    _vm._s(_vm.moment(player.start_time).format("mm:ss")) +
+                    _vm._s(_vm.moment(player.start_time).format("hh:mm:ss")) +
                     "\n                    "
                 ),
                 player.end_time
@@ -65459,7 +65459,9 @@ var render = function() {
                       }),
                       _vm._v(
                         " " +
-                          _vm._s(_vm.moment(player.end_time).format("mm:ss")) +
+                          _vm._s(
+                            _vm.moment(player.end_time).format("hh:mm:ss")
+                          ) +
                           "\n                    "
                       )
                     ])
@@ -65929,10 +65931,11 @@ if (token) {
 window.Pusher = __webpack_require__(/*! pusher-js */ "./node_modules/pusher-js/dist/web/pusher.js");
 window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
   broadcaster: 'pusher',
-  key: "websocketkey",
+  key: 'myKey',
   wsHost: window.location.hostname,
   wsPort: 9001,
-  disableStats: true
+  disableStats: true,
+  encrypted: false
 });
 
 /***/ }),

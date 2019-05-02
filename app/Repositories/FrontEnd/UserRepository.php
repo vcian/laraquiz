@@ -2,9 +2,9 @@
 
 namespace App\Repositories\FrontEnd;
 
-use App\Models\User;
-use Carbon\Carbon;
 use DB;
+use App\Models\User;
+use Illuminate\Support\Facades\Log;
 
 class UserRepository {
 
@@ -22,9 +22,12 @@ class UserRepository {
 
     public function index() {
         try {
+
             return $this->model->get();
+
         } catch (\Exception $ex) {
-            \Log::error($ex);
+
+            Log::error($ex);
             return false;
         }
     }
@@ -32,13 +35,17 @@ class UserRepository {
     public function create($input) {
         try {
             DB::beginTransaction();
+
             $user = $this->model->create($input);
 
             DB::commit();
             return $user;
+
         } catch (\Exception $ex) {
+
             DB::rollback();
-            \Log::error($ex);
+
+            Log::error($ex);
             return false;
         }
     }

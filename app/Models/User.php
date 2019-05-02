@@ -3,10 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Models\Quiz\Quiz;
-use App\Models\Quiz\UserQuizResult;
 
 class User extends Authenticatable
 {
@@ -33,16 +31,10 @@ class User extends Authenticatable
     ];
 
     /**
-     * User has played many Quiz
-     * 
+     * User has played many quiz
      */
     public function quizzes()
     {
         return $this->belongsToMany(Quiz::class, 'user_quiz_results', 'user_id', 'quiz_id')->withTimestamps();
-    }
-
-    public function quiz()
-    {
-        
     }
 }
