@@ -94,5 +94,5 @@ setInterval(function () {
 }, 10);
 
 $(document).ready(function () {
-    delete_cookie('LLQ_time', '/{{ request()->path() }}')
+    delete_cookie('LLQ_time')
 });
