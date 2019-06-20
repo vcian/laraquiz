@@ -3392,7 +3392,7 @@ function tick() {
 
     if (countdown.length !== 0) {
         countdown.html(pretty);
-        document.cookie = "LLQ_time=" + pretty;
+        document.cookie = "LLQ_time=" + pretty+';path=/';
         //console.log(pretty === '00:00')
         if (pretty === '00:00') {
             delete_cookie('LLQ_time');
@@ -3429,7 +3429,8 @@ $(".clear-cookie").click(function(){
 });
 
 delete_cookie = function (name) {
-    document.cookie = name + '=;Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    console.log('Coockie');
+    document.cookie = name + '=;Expires=Thu, 01 Jan 1970 00:00:01 Asia/Kolkata;path=/';
 };
 /** Quiz Timer - End */
 (function ($) {
