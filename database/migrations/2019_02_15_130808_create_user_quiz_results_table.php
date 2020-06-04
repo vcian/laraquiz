@@ -20,6 +20,7 @@ class CreateUserQuizResultsTable extends Migration
                 ->references('id')->on('users');
             $table->unsignedInteger("quiz_id");
             $table->foreign("quiz_id")->references('id')->on('quizzes');
+            $table->json('total_selected_options')->nullable();
             $table->tinyInteger('total_attempted')->nullable();
             $table->tinyInteger('total_skipped')->nullable();
             $table->tinyInteger('total_wrong')->nullable();

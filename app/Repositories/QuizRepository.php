@@ -288,10 +288,11 @@ class QuizRepository {
 
             $totalAttempted = $totalRight + $totalWrong;
             $totalSkipped = $input['total_q'] - $totalAttempted;
-            
+
             $userQuizResult = array();
             $user = Auth::guard('web')->user();
-            
+
+            $userQuizResult['total_selected_options'] = json_encode($input['options']);
             $userQuizResult['total_attempted'] = $totalAttempted;
             $userQuizResult['total_skipped'] = $totalSkipped;
             $userQuizResult['total_wrong'] = $totalWrong ? $totalWrong : 0;
