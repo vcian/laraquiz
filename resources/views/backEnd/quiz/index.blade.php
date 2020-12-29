@@ -34,6 +34,7 @@
                                     {!! Html::decode(link_to_route('admin.quiz.edit', '<i class="fas fa-edit"></i>', ['id' => $quiz->id], ['class' => 'btn btn-sm btn-primary'])) !!}
                                     {!! Html::decode(link_to_route('admin.quiz.destroy', '<i class="fas fa-trash-alt"></i>', ['id' => $quiz->id], ['class' => 'btn btn-sm btn-danger', "data-method" => "delete", 
                                         "data-modal-text" => "delete the record?", "data-original-title" => "Delete quiz"])) !!}
+                                        {!! Html::decode(link_to_route('quiz.play', '<i class="fas fa-eye"></i>', ['slug' => $quiz->slug], ['class' => 'btn btn-sm btn-primary','target' => '_blank'])) !!}
                                 </td>
                             </tr>
                         @endforeach
