@@ -16,5 +16,3 @@ yarn-error.log
 .idea
 .idea/laravel-quiz.iml
 .idea/workspace.xml
-public/js/all.js
-public/js/app.js
