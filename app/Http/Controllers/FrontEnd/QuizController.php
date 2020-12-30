@@ -60,9 +60,7 @@ class QuizController extends Controller
 
         $request->validate([
             'full_name' => 'required|max:255',
-            'nick_name' => 'required|unique:users,nick_name,NULL,id,quiz_id,' . $quiz->id . '|max:255|regex:/^[ A-Za-z0-9_@#&$-]*$/',
-        ],[
-            'nick_name.regex' => 'Allow alphanumeric with special characters like _,@,#,&,$,-'
+            'email' => 'required|email|unique:users,email,NULL,id,quiz_id,' . $quiz->id . '|max:255',
         ]);
 
         $input = $request->all();

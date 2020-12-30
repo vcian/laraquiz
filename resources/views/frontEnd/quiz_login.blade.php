@@ -13,10 +13,10 @@
                     {{ Form::text('full_name', null, ['placeholder' => __('Full Name'), "class" => "form-control form-control-sm"]) }}
                     {!! Html::decode($errors->has("full_name") ? $errors->first('full_name', '<span class="text-danger">:message</span>') : '') !!}
                 </div>
-                <div class="form-group {{ $errors->has("nick_name") ? "has-error" : '' }}">
-                    {!! Html::decode(Form::label('nick_name', __('Nick Name') . '<span class="text-danger">*</span> :', ['class' => 'col-form-label'])) !!}
-                    {{ Form::text('nick_name', null, ['placeholder' => __('Nick Name'), "class" => "form-control form-control-sm"]) }}
-                    {!! Html::decode($errors->has("nick_name") ? $errors->first('nick_name', '<span class="text-danger">:message</span>') : '') !!}
+                <div class="form-group {{ $errors->has("email") ? "has-error" : '' }}">
+                    {!! Html::decode(Form::label('nick_email', __('Email') . '<span class="text-danger">*</span> :', ['class' => 'col-form-label'])) !!}
+                    {{ Form::text('email', null, ['placeholder' => __('Email'), "class" => "form-control form-control-sm"]) }}
+                    {!! Html::decode($errors->has("email") ? $errors->first('email', '<span class="text-danger">:message</span>') : '') !!}
                 </div>
                 <div class="row">
                     <div class="col-12 col-md-12 col-lg-12 col-xl-12">

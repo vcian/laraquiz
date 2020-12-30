@@ -18,6 +18,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('download-sample', 'BackEnd\QuizController@downloadSample')->name('download.sample');
     Route::get('/dashboard', 'HomeController@index')->name('dashboard');
     Route::get('export-quiz-results/{quiz_id}','BackEnd\QuizController@exportQuizResults')->name('quiz-results.export');
+    Route::get('quiz-result/{quiz_id}','BackEnd\QuizController@quizResult')->name('quiz-result');
 });
 
 

@@ -18,7 +18,7 @@ class CreateUsersTable extends Migration
             $table->unsignedInteger("quiz_id");
             $table->foreign("quiz_id")->references('id')->on('quizzes');
             $table->string('full_name');
-            $table->string('nick_name');
+            $table->string('nick_name')->nullable();
             $table->timestamp('start_time')->nullable();
             $table->timestamp('end_time')->nullable();
             $table->rememberToken();
