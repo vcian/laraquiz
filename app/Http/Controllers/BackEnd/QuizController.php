@@ -176,4 +176,15 @@ class QuizController extends Controller
             Log::error($ex->getMessage());
         }
     }
+
+    public function quizResult($quizId)
+    {
+        try{
+            $results = UserQuizResult::where('quiz_id',$quizId)->get();
+            
+            return view('backEnd.quiz.results_index',compact('results'));
+        }catch(Exception $ex){
+            Log::error($ex->getMessage());
+        }
+    }
 }

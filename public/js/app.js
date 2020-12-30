@@ -1883,6 +1883,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['slug'],
   data: function data() {
@@ -70375,8 +70376,10 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("h1", { staticStyle: { "margin-top": "25px" } }, [
-                _vm._v(_vm._s(player.nick_name))
+                _vm._v(_vm._s(player.full_name))
               ]),
+              _vm._v(" "),
+              _c("span", [_vm._v(_vm._s(player.email))]),
               _vm._v(" "),
               player.end_time
                 ? _c("p", [_vm._v("Thank You.")])
