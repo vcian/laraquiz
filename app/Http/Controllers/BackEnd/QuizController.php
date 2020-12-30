@@ -2,10 +2,15 @@
 
 namespace App\Http\Controllers\BackEnd;
 
+use App\Exports\QuizResult;
 use App\Models\Quiz\Quiz;
 use Illuminate\Http\Request;
 use App\Repositories\QuizRepository;
 use App\Http\Controllers\Controller;
+use App\Models\Quiz\UserQuizResult;
+use Exception;
+use Illuminate\Support\Facades\Log;
+use Excel;
 
 class QuizController extends Controller
 {
@@ -161,5 +166,14 @@ class QuizController extends Controller
 
         return response()
             ->download(resource_path('files/Laravel Live Quiz sample.xlsx'), 'SampleQuizQuestions.xlsx', $headers);
+    }
+
+    public function exportQuizResults($quizId)
+    {
+        try{
+            return Excel::download(new QuizResult($quizId), 'quiz-results.xlsx');
+        }catch(Exception $ex){
+            Log::error($ex->getMessage());
+        }
     }
 }
